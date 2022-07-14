@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'recommender/content/home.css' %}" />
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'recommender/content/song_artist.css' %}"/> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'recommender/content/extendedplaylist.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'recommender/content/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'recommender/content/playlist.css' %}" />
+    
+
+    <title>Sounds Good</title>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
+
+
+<body class="siteBackground" style="background-image: linear-gradient(rgb(63, 121, 63), #343a40);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a href="/" class="navbar-brand">Sounds Good</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+                    {% if user.is_authenticated%}
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'playlist' %}">Playlist</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'contact' %}">Contact</a></li>
+                    
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0 mr-5" method="GET" action="{% url 'recommender:searchpage' %}">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="search" required="required">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav ml-5">
+					<li class="nav-item"><a class="nav-link active" href="{% url 'users' user.username %}">Account</a></li>
+                    <li><a class="nav-link active" href="{% url 'logout' %}">Log Out</a></li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav ml-5">
+                    <li><a class="nav-link active" href="{% url 'login' %}">Log In</a></li>
+                </ul>
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- This determines what percent of the page the body takes up width wise -->
+    <!-- If your compiler shows an error in the div below, ignore it -->
+    {% if page_percent %}
+    <div class="container-fluid", style="width: {{page_percent}}%">
+    {% else %}
+    <div class="container">
+    {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    </div>
+
+    <div class="container fixed-bottom">
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Button with data-target
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

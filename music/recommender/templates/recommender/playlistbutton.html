@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class='container'>
+    <h2>Please choose the playlist you wish to add the song to</h2>
+<form method="post" action="{% url 'playlistbutton2' %}">
+{% csrf_token %}
+{% for playlist in allplaylists %}
+    <div class="checkbox">
+        <label><input type="checkbox" name ="{{playlist.title}}" value="{{playlist.title}}">{{playlist.title}}</label>
+    </div>
+{% endfor %}
+<button type="submit" name='songid' value='{{song}}'>Add song</button>
+
+</form>
+</div>
+
+{% endblock %}

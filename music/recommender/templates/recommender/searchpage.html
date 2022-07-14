@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h2 style=" width:106%;"> Search results for "{{searched}}"  </h2>
+<div class="mainContainer" style = "width: 106%;"> 
+<div class="songContainer2" style="width:125%; display:flex; flex-wrap:wrap;">
+{% for song in songs %}
+
+    <div class= "flex-container mr-1 mb-1">
+        {% include "recommender/songcontainer.html" %}
+    </div>
+
+{% endfor %}
+</div>
+</div>
+
+
+{% endblock %}

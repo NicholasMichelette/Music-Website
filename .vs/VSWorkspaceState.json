@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\music",
+    "\\music\\media",
+    "\\music\\media\\recommender\\images",
+    "\\music\\music",
+    "\\music\\recommender",
+    "\\music\\recommender\\templates",
+    "\\music\\recommender\\templates\\recommender",
+    "\\music\\recommender\\templates\\registration"
+  ],
+  "SelectedNode": "\\music\\recommender\\templates\\base.html",
+  "PreviewInSolutionExplorer": false
+}

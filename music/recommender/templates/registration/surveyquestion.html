@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Survey{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div class="container">
+        <form action="{% url 'surveyquestion' %}" method="post">
+            {% csrf_token %}
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="col-md-1 panel-heading" style="font-size:32px; white-space: nowrap; margin-top:25px;">You've been registered!</div>
+                    <div class="col-md-1 panel-heading" style="white-space: nowrap; margin-bottom:50px">To continue, help us find out what Sounds Good to you!</div>
+                    <div class="panel-body">
+                        {% if error_message %}
+                            <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                        {% endif %}
+
+                        <div class="form-group clearfix">
+                            <label for="{{ form.question1.id_for_label }}" class="col-md-1 control-label text-right" style="white-space: nowrap;">Enter your favorite artist:</label>
+                            <div class="col-md-6">
+                                {{ form.question1 }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.question2.id_for_label }}" class="col-md-1 control-label text-right" style="white-space: nowrap;">Enter your favorite decade in music:</label>
+                            <div class="col-md-6">
+                                {{ form.question2 }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.question3.id_for_label }}" class="col-md-1 control-label text-right" style="white-space: nowrap;">Enter your favorite genre:</label>
+                            <div class="col-md-6">
+                                {{ form.question3 }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.question4.id_for_label }}" class="col-md-1 control-label text-right" style="white-space: nowrap;">Enter your favorite song:</label>
+                            <div class="col-md-6">
+                                {{ form.question4 }}
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="submit" value="Continue" class="btn btn-success" style="width:200%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock %}
+

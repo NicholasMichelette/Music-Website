@@ -1,0 +1,167 @@
+<center>
+    <iframe src="https://open.spotify.com/embed/track/{{ song.id }}" frameborder="0" width="280" height="360" allowtransparency="true" allow="encrypted-media" id="{{ song.id }}"
+            {% if "extendedplaylist" in request.path %} class="extendedplaylistiframe" {% endif %}
+            ></iframe>
+    <script>
+            var myConfObj = {
+                iframeMouseOver : ''
+            }
+
+            window.addEventListener('blur',function(){
+                if(myConfObj.iframeMouseOver === '{{ song.id }}'){
+                    $.ajax({
+                        url: '/recentlylistened/',
+                        type: "POST",
+                        data: {
+                            'song' : '{{ song.id }}', 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                        },
+                        dataType: 'json',
+                        success: function(data){
+                                    
+                        }
+
+                    });
+                }
+            });
+
+            document.getElementById('{{ song.id }}').addEventListener('blur',function(){
+                console.log("here in {{song.id}}");
+            });
+
+            document.getElementById('{{ song.id }}').addEventListener('mouseover',function(){
+                myConfObj.iframeMouseOver = '{{ song.id }}';
+            });
+            document.getElementById('{{ song.id }}').addEventListener('mouseout',function(){
+                myConfObj.iframeMouseOver = '';
+                window.focus();
+            });
+
+    </script>
+
+    <div class= "container" id = "FrameHolder{{song.id}}" style="width: 17.75rem;">
+        <button class="btn btn-light"  name='{{song.id}}like' id = '{{song.id}}like' value="{{song.id}}">
+            {% for rate in likeRating %}
+                {% if song == rate.songid %}
+                <script>
+                    $(function(){
+                        $('#{{song.id}}like').text('Liked');
+                    });
+                </script>
+                {% endif %} 
+            {% endfor %}
+            <script>
+                $(function(){
+                    if(($('#{{song.id}}like').text()) != 'Liked'){
+                        $('#{{song.id}}like').text('Like');
+                    } else {
+                        $('#{{song.id}}like').removeClass('btn btn-light').addClass('btn btn-success');
+                    }
+                });
+            </script>
+        </button>
+        <button class="btn btn-light"  name='{{song.id}}dislike' id = '{{song.id}}dislike' value="{{song.id}}">
+            {% for ate in dislikeRating  %}
+                {% if song == ate.songid %}
+                <script>
+                    $(function(){
+                        $('#{{song.id}}dislike').text('Disliked');
+                    });
+                </script>
+                    {% endif %} 
+            {% endfor %}
+            <script>
+                $(function(){
+                    if(($('#{{song.id}}dislike').text()) != 'Disliked'){
+                        $('#{{song.id}}dislike').text('Dislike');
+                    } else {
+                        $('#{{song.id}}dislike').removeClass('btn btn-light').addClass('btn btn-danger');
+                    }
+                });
+            </script>
+        </button>
+        {% if playlistID and isCreator and query.title != 'Likes' and query.recentylistenedplaylist == False %}
+        <button class ="btn btn-light" name="{{song.id}}remove" id="{{song.id}}remove" value="{{song.id}}">
+            Remove
+            <script>
+                $('#{{song.id}}remove').click(() => {
+                    $('#{{song.id}}remove').toggle()
+                });
+            </script>
+        </button>
+        {% endif %}
+        <form style="display:inline;" method="post" action="{% url 'recommender:searchpage' %}" >
+            {% csrf_token %}
+            <button class="btn btn-light" type="submit" name='song' value="{{song.id}}">Playlist</button>
+        </form>
+    </br>
+        <form style = "display:inline;" action="{% url 'song_artist' song.id  %}">
+            <input class = "btn btn-light" type="submit" value="Song page" />
+        </form>
+    </div>
+
+    <script>
+    $('#{{song.id}}like').click(function(){
+        var songid=$('#{{song.id}}like').val()
+        $.ajax({
+            url: '/likebutton/',
+            type: "POST",
+            data: {
+                'song' : songid, 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            dataType: 'json',
+            success: function(data){
+                $('#{{song.id}}like').text(data['text']);
+                if(data['text'] == 'Like'){
+                    $('#{{song.id}}like').removeClass('btn btn-success').addClass('btn btn-light');
+                } else {
+                    $('#{{song.id}}like').removeClass('btn btn-light').addClass('btn btn-success');
+                }
+                $('#{{song.id}}dislike').text('Dislike');
+                $('#{{song.id}}dislike').removeClass('btn btn-danger').addClass('btn btn-light');
+            }
+
+        });
+
+    });
+    $('#{{song.id}}dislike').click(function(){
+        var songid=$('#{{song.id}}dislike').val()
+        $.ajax({
+            url: '/dislikebutton/',
+            type: "POST",
+            data: {
+                'song' : songid, 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            dataType: 'json',
+            success: function(data){
+                $('#{{song.id}}dislike').text(data['text']);
+                if(data['text'] == 'Dislike'){
+                    $('#{{song.id}}dislike').removeClass('btn btn-danger').addClass('btn btn-light');
+                } else {
+                    $('#{{song.id}}dislike').removeClass('btn btn-light').addClass('btn btn-danger');
+                }
+                $('#{{song.id}}like').text('Like');
+                $('#{{song.id}}like').removeClass('btn btn-success').addClass('btn btn-light');
+            }
+
+        });
+
+    });
+    $('#{{song.id}}remove').click(function(){
+        var songid=$('#{{song.id}}remove').val()
+        $.ajax({
+            url: '/removebutton/',
+            type: "POST",
+            data: {
+                'song' : songid, 'playlistID': '{{playlistID}}','csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            dataType: 'json',
+            success: function(data){
+                $('#FrameHolder{{song.id}}').toggle();
+                $('#{{song.id}}').toggle();
+            }
+
+        });
+
+    });
+    </script>
+</center>

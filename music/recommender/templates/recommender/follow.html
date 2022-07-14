@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Music Search - {{ title }} {% endblock %}
+
+{% block content %}
+
+<br />
+<Center>
+    <h2>{{ title }}</h2>
+</Center>
+
+{% if all_followers %}
+    <div class="row row-cols-1 row-cols-md-3">
+        {% for follower in all_followers %}
+            <div class="col mb-4" style="width: 12rem;">
+                <center>
+                {% if follower.pic %}
+                    <a href="{% url 'users' follower.fuser.username %}">
+                        <img type="submit" src="{{ follower.pic.url }}" style="width: 10rem; height: 10rem;">
+                    </a>
+                {% else %}
+                    <a href="{% url 'users' follower.fuser.username %}">
+                        <img src="{% static 'images/favicon.ico' %}" style="width: 10rem; height: 10rem;">
+                    </a>
+                {% endif %}
+                <div class="card-body" style="width: 10rem">
+                    <center>
+                        <form style="display:inline;" action="{% url 'users' follower.fuser.username %}" >
+                            <button class="btn btn-light" type="submit">{{ follower.fuser.username }}</button>
+                        </form>
+                    </center>
+                </div>
+                </center>
+            </div>
+            
+        {% endfor %}
+    </div>
+{% endif %}
+<style>
+    .row row-cols-1 row-cols-md-3 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+</style>
+
+
+{% endblock %}

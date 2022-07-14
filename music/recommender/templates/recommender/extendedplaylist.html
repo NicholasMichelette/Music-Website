@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Music Search - {{ title }} {% endblock %}
+
+{% block content %}
+
+<h2>{{ title }}.</h2>
+
+
+{% if user.is_authenticated and query.title != 'Likes' and query.recentylistenedplaylist == False %}
+<form action =""method="POST" class="form-inline">
+    {% csrf_token %}
+    <button type="submit" name="SubmitFollow" class="btn btn-info">
+        {% if followStatus %}
+            Unfollow
+        {% else %}
+            Follow
+        {% endif %}
+    </button>
+</form>
+{% endif %}
+
+{% if isCreator and query.title != 'Likes' and query.recentylistenedplaylist == False %}
+    <form action =""method="POST" class="form-inline">
+        {% csrf_token %}
+        <button type="submit" name="Delete" class="btn btn-info">
+            Delete
+        </button>
+    </form>
+{% endif %}
+{% if user.is_authenticated %}
+<div class = "copyDiv" style="width: 24rem;">
+    Copy this playlist!
+    <form action =""method="POST" class="form-group">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Playlist Name" maxlength="20" required>
+        <input type="submit" name="SubmitCopy" class="btn btn-outline-success">
+    </form>
+</div>
+{% endif %}
+
+
+
+
+<div class="mainContainer">
+    <div class="playlistContainer">
+        {% for song in albums2 %}
+            <div class="playlistSongContainer" style="width: 17.75rem; height: 30rem">
+                {% include "recommender/songcontainer.html" %}
+            </div>
+        {% endfor %}
+        
+    </div>
+
+
+    <div class="sideContainer">
+        <h6 class="sideContainerTitle"> Playlist Info</h6>
+            {{query.title}} </br>
+            Created by: <a class="nav-link active" href="{% url 'users' query.creatorid.username %}" style="padding: 0px;">
+                {{ query.creatorid.username }}
+            </a>
+            Date of Creation: {{query.datecreated}}</br>
+            Runtime: {{minutes}}:{{seconds}} </br>
+            Number of Songs: {{songCounter}} </br>
+            <!--Followers: {{listofUsers}} </br>-->
+            Number of Followers: {{followerCount}}</br>
+            PlaylistID: {{playlistID}}  </br>
+
+            
+
+
+    </div>
+</div>
+
+
+{% endblock %}

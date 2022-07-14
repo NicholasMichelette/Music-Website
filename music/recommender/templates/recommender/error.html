@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} {{ title }} {{ errornum }}{% endblock %}
+
+{% block content %}
+
+<center>
+    <h1>{{ title }} {{ errornum }}</h1>
+    <h2>{{ errormsg }}</h2>
+</center>
+
+{% endblock %}

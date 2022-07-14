@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile Settings {% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+		<div class="alert alert-success alert-dismissable" role="alert">
+			<button class="close" data-dismiss="alert">
+				<small><sup>x</sup></small>
+			</button>
+			{{ message }}
+		</div>
+	{% endfor %}
+{% else %}
+    <br/>
+{% endif %}
+
+<div class="row">
+  <div class="col">
+    <div class="card card-fluid">
+      <h3 class="card-header"> Profile Settings </h3>
+      <div class="card-body">
+      <center>
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+          <table>
+            {{ form }}
+            {{ profile_form }}
+          </table>
+          <br>
+          <div class="form-actions">
+            <button type="submit" name="save_profile" class="btn btn-dark ml-auto">Update Profile</button>
+          </div>
+        </form>
+        </center>
+        <br/>
+        <center>
+        <form action="{% url 'changepassword' usern %}">
+          <input type="submit" class="btn btn-dark ml-auto" value="Change Password" />
+        </form>
+        </center>
+        <form action="{% url 'users' usern %}">
+          <input type="submit" class="btn btn-dark ml-auto" value="Back to Profile" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

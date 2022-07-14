@@ -1,0 +1,37 @@
+.grid {
+    display: grid;
+    grid-template-columns: 150px auto 150px;
+    grid-gap: 1em;
+  }
+  
+  header, footer {
+    grid-column: 1 / 4;
+
+  }
+  
+  @media all and (max-width: 700px) {
+    aside,
+    article {
+      grid-column: 1 / 4;
+      height: 380px;
+    }
+  }
+  
+  /* Demo Specific Styles */
+  .songbody {
+    margin: 0 auto;
+    max-width: 56em;
+    padding: 1em 0;
+  }
+
+
+aside,
+article,
+footer {
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+  

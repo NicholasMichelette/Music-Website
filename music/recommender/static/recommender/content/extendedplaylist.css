@@ -1,0 +1,27 @@
+.playlistContainer{
+    height: 100%;
+    width: 80%;
+    background-color: #343a40;
+}
+
+.playlistSongContainer{
+    width: 24%;
+    display: inline-block;
+    color: white;
+}
+
+.extendedplaylistiframe{
+    width:100%;
+    height: 380px;
+}
+
+.copyDiv{
+    background-color: #343a40;
+    display: flex;
+    width:20%;
+    color: antiquewhite;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}

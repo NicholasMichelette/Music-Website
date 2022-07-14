@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Music Search - {{ title }} {% endblock %}
+
+{% block content %}
+
+
+<div class="mainContainer">
+    <div class="songContainer">
+        {% for song in albums %}
+            <div class= "flex-container" style="width: 17.75rem; height: 28rem;">
+                {% include "recommender/songcontainer.html" %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="sideContainer">
+        <h6 class="sideContainerTitle">Try Something New</h6>
+
+        {% for playlist in followQuery %}
+        
+            <div class="sideLinkContainer2" style="margin: 0px auto;"> <!--This class is not important remove it if the styling is annoying-->
+                <a href="{% url 'extendedplaylist' playlist.id %}" class="anchorStyling"> {{playlist.title}}</a>
+               
+                     Created By:  
+                        <a class="anchorStyling" href="{% url 'users' playlist.creatorid.username %}">
+                            {{ playlist.creatorid.username }}
+                        </a>
+                
+                
+                
+            </div>
+        
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

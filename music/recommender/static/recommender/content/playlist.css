@@ -1,0 +1,109 @@
+.playlistLinkContainer{
+    /* 
+    
+    
+    color: white;
+    border: 2px solid darkgreen; */
+    width: 24%;
+    height: 380px;
+    display: inline-flex;
+    font-size: 20px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    background-color:rgb(63, 121, 63);
+    border: solid 1px white;
+    border-radius: 6px;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 12px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+.playlistLinkContainer:hover{
+    /* 
+    
+    
+    color: white;
+    border: 2px solid darkgreen; */
+    background-color:white;
+    border: solid 1px green;
+    color: green;
+    transition: 0.4s;
+
+
+}
+
+.sideLinkContainer{
+    /* 
+    color: white;
+    border: 2px solid darkgreen; */
+    height: 15vh;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    background-color:#343a40;
+    border: solid 1px white;
+    border-radius: 6px;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 12px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.sideLinkContainer2{
+    /* 
+    color: white;
+    border: 2px solid darkgreen; */
+    height: 15vh;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    background-color:#343a40;
+    border: solid 1px white;
+    border-radius: 6px;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 12px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+}
+.sideLinkContainer:hover{
+    /* 
+    color: white;
+    border: 2px solid darkgreen; */
+    width: 90%;
+    font-size: larger;
+    transition: 0.2s;
+}
+
+
+.playlistSideContainer{
+    width: 20%;
+    background-color: #555;
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.anchorStyling{
+    font-weight: bold;
+    color: white;
+}
+
+.anchorStyling:hover{
+    text-decoration: none;
+
+}
+
+
+

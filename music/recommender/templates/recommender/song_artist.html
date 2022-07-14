@@ -1,0 +1,83 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Create three equal columns that floats next to each other */
+  .column {
+    float: left;
+    width: 40%;
+    padding: 10px;
+  }
+
+  .sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top:0;
+  } 
+  .left {
+    width: 25%;
+    height: 50%;
+  }
+  
+  div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  font-size: 20px;
+}
+  .right{
+    width: 35%;
+  }
+
+  @media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+
+
+}
+
+</style>
+
+
+<div class="row">
+  <div class="column left" style="background-color:  rgba(48, 47, 47, 0.459);">
+    <h2>Song Name:</h2>
+    <h4 style= "color:white; text-indent: 15px;">{{ artist }}</h4>
+    <h2> Artist : </h2>
+    <h4 style= "color:white; text-indent: 10px;"> {{artistname}} </h4>
+
+  </div>
+  <div class="column " style=" background-color:  rgba(48, 47, 47, 0.596);">
+    <div class= "sticky">
+    <center><iframe src="https://open.spotify.com/embed/track/{{ song }}" frameborder="0" allowtransparency="true" height= "500" width = "400" allow="encrypted-media" class= "sticky"></iframe></center>
+    </div>
+  </div>
+  
+  <div class="column right" style=" background-color:  rgba(46, 46, 46, 0.534);">
+    <center><h2> Related Tracks </h2></center>
+    {% for song in albums %}
+
+      <td>
+        <div class= "flex-container">
+          <center>
+          <div class= "flex-container mr-1 mb-1">
+            {% include "recommender/songcontainer.html" %}
+          </div>
+          </center>
+        </div>
+      </td>
+
+      {% endfor %}
+
+  </div>
+</div>
+  
+{% endblock%}    

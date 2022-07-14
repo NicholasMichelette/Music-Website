@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{usern}}'s Profile {% endblock %} <!-- Replace the word user with the username when linking DB -->
+
+{% block content %}
+
+
+<div class="page">
+    <div class="personWrapper"> <!-- Contains personal info like pic, follower / following counts, and bio -->
+        <!-- Get their profile pic -->
+        <p class="picture">
+            {% if profilePic %}
+            <img src="{{ profilePic.url }}" height = 100 width = 100>
+            {% else %}
+            <img src="{% static 'images/favicon.ico' %}" height = 100 width = 100>
+            {% endif %}
+        </p>
+        <h1 id="username">{{ usern }}</h1>
+
+        <!-- Follow/Unfollow button -->
+        {% if user.is_authenticated %}
+            {% if user != followerobj %}
+                <form action="{% url 'follow_unfollow' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="followed_name" value={{followerobj.username}}>
+                    {% if followed %}
+                        <button type="submit" class="btn btn-info mb-1">Unfollow</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-light mb-1">Follow</button>
+                    {% endif %}
+                </form>
+            {% endif %}
+        {% endif %}
+        <div class="follow">
+            <ul class="navbar-nav mr-auto">
+                <li class="mb-1">
+                    <form style="display:inline;" action="{% url 'follow' usern 'followers' %}" >
+                    <button class="btn btn-light" type="submit">{{ followerCount }} Followers</button>
+                    </form>
+                </li>
+                <li class="mb-1">
+                    <form style="display:inline;" action="{% url 'follow' usern 'following' %}" >
+                    <button class="btn btn-light" type="submit">{{ followingCount }} Following</button>
+                    </form>
+                </li>
+                {% if user.username == usern %}
+                <li class="mb-1">
+                    <form style="display:inline;" action="{% url 'profilesettings' usern %}" >
+                    <button class="btn btn-light" type="submit">Edit Profile</button>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- Get their birthday ----->
+        <!-- TODO: Birthday can't be set from the profilesettings page, update that at some point -->
+        {% if birthday %}
+        <p id="birthday">Born: {{ birthday }}</p>
+        {% endif %}
+        <!-- Get their bio ---------->
+        <div class="bio">
+            {% if bio %}
+            <p>{{ bio }}</p>
+            {% else %}
+            <p>No bio.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="songsWrapper"> <!-- Wrapps the user's favorite songs -->
+        <!-- Show 3 of their liked songs -->
+        <h1>Liked Songs</h1>
+        {% if songs %}
+        <table class="table">
+        <tbody>
+        <tr>
+
+
+        {% for song in songs %}
+
+        <td>
+            <div class= "songContainer2">
+                <center>
+                <div class= "flex-container mr-1 mb-1">
+                    {% include "recommender/songcontainer.html" %}
+                </div>
+                </center>
+            </div>
+            <!-- The song ID is: {{ song }} -->
+        </td>
+
+
+        {% endfor %}
+
+        </tr>
+        </tbody>
+        </table>
+
+        {% endif %}
+    </div>
+</div>
+<style>
+    .page {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .picture {
+        margin: 2em 0 1em;
+    }
+</style>
+
+
+{% endblock %}

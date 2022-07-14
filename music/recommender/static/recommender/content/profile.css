@@ -1,0 +1,12 @@
+#page {
+    margin: 0;
+    background-color: rgba(255,0,0,0.3);
+}
+#username{
+    text-align: center;
+}
+
+#birthday {
+    size: 80%;
+    color: gray;
+}

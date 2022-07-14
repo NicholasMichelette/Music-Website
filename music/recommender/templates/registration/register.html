@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div class="parent-container d-flex">
+    <div class="container"><div class="row justify-content-md-center">
+        <div class="col-md-8"><div class="card"><div class="card-header">Register</div>
+            <div class="card-body">
+    <link rel="stylesheet" href="{% static 'recommender/register.css' %}">
+        <form action="{% url 'registerpage' %}" method="post">
+            {% csrf_token %}
+            <div class="row" style="white-space: nowrap; overflow: hidden; margin-left:5px;">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {% if error_message %}
+                            <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                        {% endif %}
+
+                        <div class="form-group row">
+                            <label for="{{ form.username.id_for_label }}" class="col-md-3 control-label text-md-left">Username<span class="text-red" style="color:red">*</span>:</label>
+                            <div class="col-md-10">
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="{{ form.email.id_for_label }}" class="col-md-3 control-label text-md-left">Email<span class="text-red" style="color:red">*</span>:</label>
+                            <div class="col-md-10">
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="{{ form.password.id_for_label }}" class="col-md-3 control-label text-md-left">Password<span class="text-red" style="color:red">*</span>:</label>
+                            <div class="col-md-10">
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="{{ form.password_repeat.id_for_label }}" class="col-md-3 control-label text-right">Confirm password<span class="text-red" style="color:red">*</span>:</label>
+                            <div class="col-md-10">
+                                {{ form.password_repeat }}
+                            </div>
+                        </div>
+                        <label for="{{ form.birthday.id_for_label }}" class="">Enter Date of Birth<span class="text-red" style="color:red">*</span>: (MM/DD/YYYY)</label>
+                        <div class="form-group row" style="margin-bottom: 0;">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                {{ form.birthday }}
+                            </div>
+                        </div>
+                        <div style="font-size:12px; margin-bottom: 10px;">
+                            By registering, you agree to the Terms of Service.
+                        </div>
+                        <div class="">
+                            <input type="submit" value="Register" class="btn btn-success" style="width:200%">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                   <div style="font-size:21px; margin-bottom: 20px;">
+                       Welcome to Sounds Good!
+                   </div>
+                    <div style="font-size:12px; margin-bottom: 50px;">
+                       Password requirements:<br>
+                        • Must be more than 8 characters long<br>
+                        • Must include at least one letter<br>
+                        • Must include at least one number<br>
+                        • Must include at least one special character<br>
+                        • Must be easy for you to remember<br>
+                        • Make it something difficult to guess
+                    </div>
+                    <div>
+                        <img src="{% static 'images/musicnote.png' %}" height="232" width="143">
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div></div></div></div></div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}
